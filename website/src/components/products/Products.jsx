@@ -2,8 +2,15 @@ import React from 'react'
 import { CiShoppingCart, CiSearch } from 'react-icons/ci'
 import './Products.css'
 import { useNavigate } from 'react-router-dom'
+import { addToCart } from '../../redux/cartSlice'
+import { useDispatch } from 'react-redux'
 
 const Products = ({items, heading}) => {
+
+    const dispatch = useDispatch()
+    const handleAddToCart = (item) => {
+        dispatch(addToCart(item))
+    }
 
 const navigate = useNavigate()
 const handleViewDetails = (id) => {
@@ -25,7 +32,7 @@ const handleViewDetails = (id) => {
                    
                     </div>
                     <div className='product-info'>
-                    <button className='icon'>
+                    <button className='icon' onClick={() => handleAddToCart(item)}>
                         <CiShoppingCart/>
                         Add to Cart</button>
                         <button className='icon' onClick={() => handleViewDetails(item.id)}>
